@@ -5,6 +5,8 @@ import com.belai.dslist.dto.GameDTO;
 import com.belai.dslist.dto.GameListDTO;
 import com.belai.dslist.dto.GameMinDTO;
 import com.belai.dslist.entities.Game;
+import com.belai.dslist.entities.GameList;
+import com.belai.dslist.repository.GameListRespository;
 import com.belai.dslist.repository.GameRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class GameService {
+public class GameListService {
 
     @Autowired
-    private GameRespository gameRespository;
+    private GameListRespository gameListRespository;
+
 
     @Transactional(readOnly = true)
-    public List<GameMinDTO> findAll(){
-        List<Game> result = gameRespository.findAll();
-        return result.stream().map(x -> new GameMinDTO(x)).toList();
+    public List<GameListDTO> findAll(){
+        List<GameList> result = gameListRespository.findAll();
+        return result.stream().map(x -> new GameListDTO(x)).toList();
     }
 
-    @Transactional(readOnly = true)
-    public GameDTO findById(Long id){
-         Game result = gameRespository.findById(id).get();
-         return new GameDTO(result);
-    }
+
 
 
 
